@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 class ImageFullScreen extends StatelessWidget {
   final String imageUrl;
@@ -35,9 +36,9 @@ class ImageFullScreen extends StatelessWidget {
       body: GestureDetector(
         onTap: onTap,
         child: Center(
-          child: Hero(
-            tag: tag,
-            child: CachedNetworkImage(
+          child: WidgetZoom(
+            heroAnimationTag: tag,
+            zoomWidget: CachedNetworkImage(
               imageUrl: imageUrl,
               errorWidget: (context, url, error) => const Icon(
                 Icons.error_outline,

@@ -8,7 +8,6 @@ import 'package:global_service_demo/common_widgets/fullImageView.dart';
 import 'package:global_service_demo/gallery.dart/gallary_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:widget_zoom/widget_zoom.dart';
 
 class DetailsPage extends GetView<GalleryController> {
   const DetailsPage({super.key});
@@ -58,32 +57,43 @@ class DetailsPage extends GetView<GalleryController> {
                             children: [
                               Row(
                                 children: [
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey,
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(ImageFullScreen(
+                                          imageUrl: controller
+                                              .selectedImage["largeImageURL"],
+                                          onTap: () {
+                                            Get.back();
+                                          },
+                                          tag: "image${Get.arguments}"));
+                                    },
+                                    child: Hero(
+                                      tag: "image${Get.arguments}",
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey,
+                                            ),
+                                            BoxShadow(
+                                              color: Colors.white70,
+                                              spreadRadius: -5.0,
+                                              blurRadius: 20.0,
+                                            ),
+                                          ],
                                         ),
-                                        BoxShadow(
-                                          color: Colors.white70,
-                                          spreadRadius: -5.0,
-                                          blurRadius: 20.0,
-                                        ),
-                                      ],
-                                    ),
-                                    height: size.height * 0.5,
-                                    width: size.width > 1000
-                                        ? size.width * 0.6
-                                        : size.width,
-                                    child: WidgetZoom(
-                                      heroAnimationTag: "image${Get.arguments}",
-                                      zoomWidget: CachedNetworkImage(
-                                        imageUrl: controller
-                                            .selectedImage["largeImageURL"],
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(
-                                          Icons.error_outline,
-                                          color: Colors.red,
+                                        height: size.height * 0.5,
+                                        width: size.width > 1000
+                                            ? size.width * 0.6
+                                            : size.width,
+                                        child: CachedNetworkImage(
+                                          imageUrl: controller
+                                              .selectedImage["largeImageURL"],
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(
+                                            Icons.error_outline,
+                                            color: Colors.red,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -926,4 +936,3 @@ class DetailsPage extends GetView<GalleryController> {
     );
   }
 }
-
