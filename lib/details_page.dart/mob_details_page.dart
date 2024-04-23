@@ -18,10 +18,9 @@ class DetailsPageMob extends GetView<GalleryController> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) async {
-        if (Get.previousRoute.isNotEmpty) {
+    return WillPopScope(
+      onWillPop: () {
+         if (Get.previousRoute.isNotEmpty) {
           Get.back();
           if (Get.previousRoute.contains("details")) {
             controller.getImage(
@@ -30,6 +29,7 @@ class DetailsPageMob extends GetView<GalleryController> {
         } else {
           Get.offAllNamed(RouteName.gallery);
         }
+        return Future.value(true);
       },
       child: SafeArea(
         child: Scaffold(

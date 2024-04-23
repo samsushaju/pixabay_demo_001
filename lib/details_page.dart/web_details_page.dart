@@ -15,9 +15,8 @@ class DetailsPage extends GetView<GalleryController> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) async {
+    return WillPopScope(
+      onWillPop: () {
         if (Get.previousRoute.isNotEmpty) {
           Get.back();
           if (Get.previousRoute.contains("details")) {
@@ -27,6 +26,7 @@ class DetailsPage extends GetView<GalleryController> {
         } else {
           Get.offAllNamed(RouteName.gallery);
         }
+        return Future.value(true);
       },
       child: SafeArea(
         child: Scaffold(
@@ -733,6 +733,7 @@ class DetailsPage extends GetView<GalleryController> {
                                             inputdata["q"] = controller
                                                 .searchTextController.text;
                                           }
+                                          
                                           controller.page.value = 1;
                                           controller.getgalleryImage(
                                               input: inputdata);

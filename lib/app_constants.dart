@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 // Routes for the app
 class RouteName {
-  static const String gallery = "/gallery";
+  static const String gallery = "/";
   static const String detailsPage = "/details";
 }
 
